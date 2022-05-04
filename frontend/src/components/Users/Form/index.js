@@ -1,11 +1,12 @@
 import TextInput from "../../shared/TextInput";
 import ErrorLabel from "../../shared/ErrorLabel";
+import "./index.css";
 
 export default function Form({ handler, data, children }) {
   const { user, errors } = data;
 
   return (
-    <div>
+    <div className="form">
       <TextInput model="first_name" data={user} handler={handler}>
         First name
       </TextInput>

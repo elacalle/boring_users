@@ -9,16 +9,18 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Index />} />
-        <Route path="users" element={<Users />}>
-          <Route index element={<Index />} />
-          <Route path="new" element={<New />} />
-          <Route path=":id" element={<Edit />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
-  </React.StrictMode>
+  <div className="container">
+    <React.StrictMode>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Index />} />
+          <Route path="users" element={<Users />}>
+            <Route index element={<Index />} />
+            <Route path="new" element={<New />} />
+            <Route path=":id" element={<Edit />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </React.StrictMode>
+  </div>
 );

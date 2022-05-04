@@ -1,3 +1,5 @@
+import "./index.css";
+
 export default function ErrorLabel({ model, errors }) {
   let errorCode = null;
 
@@ -6,5 +8,5 @@ export default function ErrorLabel({ model, errors }) {
     errorCode = propertyError.length ? propertyError[0].error : null;
   }
 
-  return <div>{errorCode}</div>;
+  return <div className="error-label">{errorCode}</div>;
 }

@@ -1,0 +1,8 @@
+.row {
+  display: flex;
+  margin: 1em 0em;
+}
+
+.link {
+  margin-right: 1em;
+}

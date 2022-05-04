@@ -1,16 +1,24 @@
-export default function TextInput(props) {
-  const { model, data, handler, disabled } = props;
+import "./index.css";
 
+export default function TextInput({
+  model,
+  data,
+  handler,
+  disabled,
+  children,
+}) {
   return (
-    <label>
-      {props.children}
-      <input
-        disabled={disabled}
-        type="text"
-        name={model}
-        value={data[model]}
-        onChange={handler}
-      />
-    </label>
+    <div className="text-input">
+      <label>
+        {children}
+        <input
+          disabled={disabled}
+          type="text"
+          name={model}
+          value={data[model]}
+          onChange={handler}
+        />
+      </label>
+    </div>
   );
 }
