@@ -1,0 +1,27 @@
+version: "3.9"
+services:
+  db:
+    image: postgres
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: postgres
+  frontend:
+    build: ./frontend
+    container_name: frontend_c
+    ports:
+      - '8080:8080'
+    stdin_open: true
+  backend:
+    build: .
+    container_name: backend_c
+    ports:
+      - "3000:3000"
+    environment:
+      RAILS_ENV: development
+      POSTGRES_HOST: db 
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DATABASE: postgres_development
+    depends_on:
+      - db
