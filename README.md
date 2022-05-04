@@ -1,24 +1,28 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+You need to follow the next steps in order to run this application on your local machine:
 
-Things you may want to cover:
+You should install Docker on your computer in order to run it without installing any component on your host computer. I recommend you install Docker following [these instructions](https://docs.docker.com/engine/install/).
 
-* Ruby version
+Once you have installed it on your computer Docker you should install [docker-compose](https://docs.docker.com/compose/install/) too, in order to run multiple containers such as database, frontend and backend.
 
-* System dependencies
+You should build the container, to do that execute this command
 
-* Configuration
+``` bash
+docker-compose build
+```
 
-* Database creation
+When containers have finished the build process, then you should run these images with this command
 
-* Database initialization
+``` bash
+docker-compose up
+```
+And finally, run the migration commands in order to setup the application database
 
-* How to run the test suite
+``` bash
+docker-compose exec backend bundle exec rake db:create
+docker-compose exec backend bundle exec rake db:migrate
+docker-compose exec backend bundle exec rake db:seed
+```
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Once you have completed the last step, you can visit [http://localhost:8080](http://localhost:8080)
