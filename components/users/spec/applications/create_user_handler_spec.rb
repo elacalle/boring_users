@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe UserCreator, type: :class do
+RSpec.describe CreateUserHandler, type: :class do
   let(:payload) do
     {
       uid: '12345678',
@@ -14,7 +14,8 @@ RSpec.describe UserCreator, type: :class do
   end
 
   let(:repository) { UserInMemoryRepository.new }
-  let(:user_creator) { described_class.new(repository) }
+  let(:user_creator) { UserCreator.new(repository) }
+  let(:create_user_handler) { described_class.new(user_creator) }
   let(:event) { double }
 
   describe '#call' do
@@ -22,7 +23,7 @@ RSpec.describe UserCreator, type: :class do
       it 'saves the user' do
         allow(event).to receive(:data).and_return(payload)
 
-        user_creator.call(event)
+        create_user_handler.call(event)
 
         expect(repository.records.first.to_h).to include(payload)
       end
@@ -32,7 +33,7 @@ RSpec.describe UserCreator, type: :class do
       it 'raises an exception' do
         allow(event).to receive(:data).and_return(payload.merge({ first_name: nil }))
 
-        expect { user_creator.call(event) }.to raise_error(ArgumentError)
+        expect { create_user_handler.call(event) }.to raise_error(ArgumentError)
       end
     end
 
@@ -40,7 +41,7 @@ RSpec.describe UserCreator, type: :class do
       it 'raises an exception' do
         allow(event).to receive(:data).and_return(payload.merge({ last_name: nil }))
 
-        expect { user_creator.call(event) }.to raise_error(ArgumentError)
+        expect { create_user_handler.call(event) }.to raise_error(ArgumentError)
       end
     end
 
@@ -48,7 +49,7 @@ RSpec.describe UserCreator, type: :class do
       it 'raises an exception' do
         allow(event).to receive(:data).and_return(payload.merge({ email: nil }))
 
-        expect { user_creator.call(event) }.to raise_error(ArgumentError)
+        expect { create_user_handler.call(event) }.to raise_error(ArgumentError)
       end
     end
 
@@ -56,7 +57,7 @@ RSpec.describe UserCreator, type: :class do
       it 'raises an exception' do
         allow(event).to receive(:data).and_return(payload.merge({ phone_number: nil }))
 
-        expect { user_creator.call(event) }.to raise_error(ArgumentError)
+        expect { create_user_handler.call(event) }.to raise_error(ArgumentError)
       end
     end
   end

@@ -12,7 +12,7 @@ module Users
 
     ActiveSupport.on_load :active_event_store do |store|
       store.subscribe UserDelete, to: DeleteUserCommand, sync: true
-      store.subscribe UserCreator, to: CreateUserCommand, sync: true
+      store.subscribe CreateUserHandler, to: CreateUserCommand, sync: true
       store.subscribe UserUpdater, to: UpdateUserCommand, sync: true
     end
   end
