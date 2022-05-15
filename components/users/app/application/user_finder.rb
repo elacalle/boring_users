@@ -10,6 +10,6 @@ class UserFinder
 
     raise UserNotFound, "Unable to find User uid #{uid}" if user.nil?
 
-    UserResponseMapper.new.call(user)
+    user.to_h
   end
 end

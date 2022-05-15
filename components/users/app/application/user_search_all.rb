@@ -8,6 +8,6 @@ class UserSearchAll
   def call
     users = @repository.search_all
 
-    users.map { |user| UserResponseMapper.new.call(user) }
+    users.map(&:to_h)
   end
 end
