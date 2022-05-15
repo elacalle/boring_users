@@ -5,10 +5,8 @@ class UserDelete
     @repository = repository
   end
 
-  def call(event)
-    uid = event.data[:uid]
-
-    user = @repository.find(UserUid.new(uid))
+  def call(parameters)
+    user = @repository.find(parameters[:uid])
 
     @repository.delete(user.uid)
   end

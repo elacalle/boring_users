@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe UserDelete, type: :class do
+RSpec.describe DeleteUserHandler, type: :class do
   let(:user) do
     {
       uid: '12345678',
@@ -15,7 +15,8 @@ RSpec.describe UserDelete, type: :class do
 
   let(:repository) { UserInMemoryRepository.new }
   let(:records) { [OpenStruct.new(user)] }
-  let(:user_delete) { described_class.new(repository) }
+  let(:user_delete) { UserDelete.new(repository) }
+  let(:user_delete_handler) { described_class.new(user_delete) }
   let(:event) { double }
 
   before do
@@ -27,7 +28,7 @@ RSpec.describe UserDelete, type: :class do
       it 'returns the user' do
         allow(event).to receive(:data).and_return({ uid: user[:uid] })
 
-        user_delete.call(event)
+        user_delete_handler.call(event)
 
         expect(repository.records.count).to eq 0
       end
