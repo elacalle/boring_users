@@ -5,21 +5,17 @@ class UserUpdater
     @repository = repository
   end
 
-  # rubocop:disable Metrics/AbcSize
-  def call(event)
-    data = event.data
-
-    user = @repository.find(UserUid.new(data[:uid]))
+  def call(parameters)
+    user = @repository.find(parameters[:uid])
 
     user.assign(
       uid: UserUid.new(user.uid.value),
-      first_name: UserFirstName.new(data[:first_name]),
-      last_name: UserLastName.new(data[:last_name]),
+      first_name: parameters[:first_name],
+      last_name: parameters[:last_name],
       email: UserEmail.new(user.email.value),
-      phone_number: UserPhoneNumber.new(data[:phone_number])
+      phone_number: parameters[:phone_number]
     )
 
     @repository.update(user)
   end
-  # rubocop:enable Metrics/AbcSize
 end
